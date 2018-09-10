@@ -7,6 +7,7 @@ const key       = sol.key;
 const plaintext = sol.plaintext;
 
 module.exports = () => {
+  console.log('Single-byte XOR cipher');
   console.log('Ciphertext: ', hex);
   console.log('Key:        ', key);
   console.log('Plaintext:  ', plaintext);

@@ -18,6 +18,7 @@ module.exports = (data) => {
     if (score > search.score) search = { ciphertext, plaintext, key, score };
   });
 
+  console.log('Detect single-character XOR');
   console.log('Ciphertext: ', search.ciphertext);
   console.log('Plaintext:  ', search.plaintext);
   console.log('Score:      ', search.score.toFixed(3));

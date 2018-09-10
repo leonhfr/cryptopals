@@ -8,6 +8,7 @@ const xor = a
   .hexEncode();
 
 module.exports = () => {
+  console.log('Fixed XOR');
   console.log('a        ', a);
   console.log('b        ', b);
   console.log('c = a ^ b', c);

@@ -5,6 +5,7 @@ const conversion = hex
   .base64Encode();
 
 module.exports = () => {
+  console.log('Convert hex to base64');
   console.log('Hex:        ', hex);
   console.log('Base 64:    ', base64);
   console.log('Conversion: ', conversion);
