@@ -1,3 +1,3 @@
 module.exports = (data) => {
-  console.log(data['4']);
+  console.log(data);
 }

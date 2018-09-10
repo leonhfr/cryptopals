@@ -6,20 +6,6 @@ const path = require('path');
 const utils  = require('./utils/data.js');
 const crypto = require('./utils/crypto.js');
 
-let files;
-const data = {};
-try {
-  files = fs.readdirSync(path.join(__dirname, 'data'));
-} catch (err) {
-  throw new Error('Data directory does not exit:', err );
-}
-files.forEach(file => {
-  const fileId = file.replace('.txt', '');
-  const fileData = fs.readFileSync(path.join(__dirname, 'data', file));
-
-  data[fileId] = fileData;
-})
-
 const id = Number(process.argv[2]) || 1;
 if (typeof id !== 'number' ||
     !Number.isInteger(id) ||
@@ -31,6 +17,24 @@ if (typeof id !== 'number' ||
 const set      = Math.ceil(id / 8);
 const setDir   = `set${set}`;
 const fileName = `${id  }.js`;
+
+let files;
+let data = {};
+try {
+  files = fs.readdirSync(path.join(__dirname, 'data'));
+} catch (err) {
+  throw new Error('Data directory does not exit:', err );
+}
+files.forEach(file => {
+  const fileId = Number(file.replace('.txt', ''));
+  if (fileId === id) {
+    data = fs.readFileSync(path.join(__dirname, 'data', file));
+
+    if (!data) {
+      throw new Error('Couldn\' read the data file.')
+    }
+  }
+})
 
 let challenges;
 try {
