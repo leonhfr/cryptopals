@@ -1,0 +1,26 @@
+{
+  "name": "cryptopals",
+  "version": "1.0.0",
+  "description": "Solutions to the Cryptopals challenges in JavaScript",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonhfr/cryptopals.git"
+  },
+  "keywords": [
+    "cryptopals"
+  ],
+  "author": "Leon Hollender <hello@leonh.fr> (https://github.com/leonhfr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leonhfr/cryptopals/issues"
+  },
+  "homepage": "https://github.com/leonhfr/cryptopals#readme",
+  "devDependencies": {
+    "commitizen": "^2.10.1"
+  }
+}
