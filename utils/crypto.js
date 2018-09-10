@@ -37,3 +37,9 @@ Buffer.prototype.singleCharacterXor = function () {
 
   return { plaintext, key: search.key };
 }
+
+Buffer.prototype.hammingDistance = function (buffer) {
+  return this
+    .xor(buffer)
+    .bits();
+}

@@ -25,5 +25,12 @@ Buffer.prototype.xor = function (key) {
 
 Buffer.prototype.toAscii = function () {
   return this.toString();
-  // return String.fromCharCode.apply(String, this);
+}
+
+Buffer.prototype.bits = function () {
+  return [...this]
+    .map(c => c.toString(2))
+    .join('')
+    .replace(/0/g, '')
+    .length;
 }
