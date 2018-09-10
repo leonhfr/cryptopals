@@ -28,7 +28,7 @@ try {
 files.forEach(file => {
   const fileId = Number(file.replace('.txt', ''));
   if (fileId === id) {
-    data = fs.readFileSync(path.join(__dirname, 'data', file));
+    data = fs.readFileSync(path.join(__dirname, 'data', file)).toString();
 
     if (!data) {
       throw new Error('Couldn\' read the data file.')
