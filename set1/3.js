@@ -6,7 +6,7 @@ const sol = hex
 const key       = sol.key;
 const plaintext = sol.plaintext;
 
-module.exports = function () {
+module.exports = () => {
   console.log('Ciphertext: ', hex);
   console.log('Key:        ', key);
   console.log('Plaintext:  ', plaintext);

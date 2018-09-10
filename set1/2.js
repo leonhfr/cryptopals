@@ -7,7 +7,7 @@ const xor = a
   .xor(b.hexDecode())
   .hexEncode();
 
-module.exports = function () {
+module.exports = () => {
   console.log('a        ', a);
   console.log('b        ', b);
   console.log('c = a ^ b', c);

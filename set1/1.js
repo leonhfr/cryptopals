@@ -4,7 +4,7 @@ const conversion = hex
   .hexDecode()
   .base64Encode();
 
-module.exports = function () {
+module.exports = () => {
   console.log('Hex:        ', hex);
   console.log('Base 64:    ', base64);
   console.log('Conversion: ', conversion);
