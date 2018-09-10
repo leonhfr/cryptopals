@@ -3,7 +3,8 @@
 const fs   = require('fs');
 const path = require('path');
 
-const utils = require('./utils/data.js');
+const utils  = require('./utils/data.js');
+const crypto = require('./utils/crypto.js');
 
 const challenge = Number(process.argv[2]) || 1;
 if (typeof challenge !== 'number' ||
