@@ -14,7 +14,7 @@ const challenge = getChallenge(setDir, fileName);
 
 const blocks = require('./utils/blocks.js');
 const crypto = require('./utils/crypto.js');
-const encode = require('./utils/data.js');
+const encode = require('./utils/encode.js');
 const pad    = require('./utils/pad.js');
 const utils  = require('./utils/utils.js');
 const xor    = require('./utils/xor.js');
