@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 String.prototype.scoreText = function () {
 
   const frequencies = { a: 8.176, b: 1.492, c: 2.782, d: 4.253, e: 12.702,
@@ -42,4 +44,39 @@ Buffer.prototype.hammingDistance = function (buffer) {
   return this
     .xor(buffer)
     .bits();
+}
+
+Buffer.prototype.pad = function (blockLength) {
+  const padLength = blockLength - this.length % blockLength;
+  if (blockLength === 0 || padLength <= 0) return this;
+  return Buffer.concat([this, Buffer.alloc(padLength, padLength)]);
+}
+
+Buffer.prototype.stripPadding = function (blockLength) {
+  const pad = this[this.length - 1];
+  if (pad < blockLength && this.valPadding(blockLength)) return this.slice(0, this.length - pad);
+  else return this;
+}
+
+Buffer.prototype.valPadding = function (blockLength) {
+  if (this.length % blockLength !== 0) return false;
+  const pad = this[this.length - 1];
+  for (let i = 0; i < pad; i++) {
+    if (this[this.length - i - 1] !== pad) return false;
+  }
+  return true;
+}
+
+Buffer.prototype.ecbEncrypt = function (key) {
+  const iv = '';
+  const cipher = crypto.createCipheriv('aes-128-ecb', key, iv);
+  cipher.setAutoPadding(false);
+  return Buffer.concat([cipher.update(this.pad(key.length)), cipher.final()]);
+}
+
+Buffer.prototype.ecbDecrypt = function (key) {
+  const iv = '';
+  const decipher = crypto.createDecipheriv('aes-128-ecb', key, iv);
+  decipher.setAutoPadding(false);
+  return Buffer.concat([decipher.update(this), decipher.final()]);
 }

@@ -8,6 +8,10 @@ String.prototype.base64Decode = function () {
   return Buffer.from(this, 'base64');
 }
 
+String.prototype.asciiDecode = function () {
+  return Buffer.from(this);
+}
+
 // Buffer methods
 
 Buffer.prototype.hexEncode = function () {
