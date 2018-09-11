@@ -1,43 +1,3 @@
-// String methods
-
-String.prototype.hexDecode = function () {
-  return Buffer.from(this, 'hex');
-}
-
-String.prototype.base64Decode = function () {
-  return Buffer.from(this, 'base64');
-}
-
-String.prototype.asciiDecode = function () {
-  return Buffer.from(this);
-}
-
-// Buffer methods
-
-Buffer.prototype.hexEncode = function () {
-  return this.toString('hex');
-}
-
-Buffer.prototype.base64Encode = function () {
-  return this.toString('base64');
-}
-
-Buffer.prototype.asciiEncode = function () {
-  return this.toString();
-}
-
-Buffer.prototype.xor = function (key) {
-  return Buffer.from(this.map((x, i) => (x ^ key[i % key.length])));
-}
-
-Buffer.prototype.bits = function () {
-  return [...this]
-    .map(c => c.toString(2))
-    .join('')
-    .replace(/0/g, '')
-    .length;
-}
-
 Buffer.prototype.getBlocks = function (length, nBlocks) {
   let blocks = [];
   if (nBlocks === undefined) nBlocks = Math.ceil(this.length / length);
@@ -57,8 +17,6 @@ Buffer.prototype.hasDuplicateBlocks = function (length) {
   return { dup: false };
   // TODO: log positions
 }
-
-// Array methods
 
 Array.prototype.transposeBlocks = function () {
   const length = this[0].length;
