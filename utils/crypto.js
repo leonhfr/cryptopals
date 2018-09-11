@@ -1,13 +1,11 @@
 const crypto = require('crypto');
 
 String.prototype.scoreText = function () {
-
   const frequencies = { a: 8.176, b: 1.492, c: 2.782, d: 4.253, e: 12.702,
     f: 2.228, g: 2.015, h: 6.094, i: 6.966, j: 0.153, k: 0.772, l: 4.025,
     m: 2.406, n: 6.749, o: 7.507, p: 1.929, q: 0.095, r: 5.987, s: 6.327,
     t: 9.056, u: 2.758, v: 0.978, w: 2.360, x: 0.150, y: 1.974, z: 0.074,
     ' ': 20.000 };
-
   return this
     .toLowerCase()
     .split('')
@@ -23,20 +21,16 @@ Buffer.prototype.singleCharacterXor = function () {
     key: 0,
     score: -Infinity
   }
-
   for (let key = 0; key < 256; key++) {
     const score = this
       .xor(Buffer.from([key]))
       .toAscii()
       .scoreText();
-
     if (score > search.score) search = { key, score };
   }
-
   const plaintext = this
     .xor(Buffer.from([search.key]))
     .toAscii();
-
   return { plaintext, key: search.key };
 }
 
