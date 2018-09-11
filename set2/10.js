@@ -19,10 +19,10 @@ module.exports = (data) => {
     .asciiEncode()
     === test;
 
-  const iv = [ 0,0,0,0,
-               0,0,0,0,
-               0,0,0,0,
-               0,0,0,0 ];
+  const iv = Buffer.from([ 0,0,0,0,
+                           0,0,0,0,
+                           0,0,0,0,
+                           0,0,0,0 ]);
   const plaintext = data
     .replace(/\n/g, '')
     .base64Decode()
