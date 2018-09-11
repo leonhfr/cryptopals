@@ -49,6 +49,16 @@ Buffer.prototype.getBlocks = function (length, nBlocks) {
   return blocks;
 }
 
+Buffer.prototype.hasDuplicateBlocks = function (length) {
+  const blocks = this.getBlocks(length);
+  for (let i = 0; i < blocks.length; i++) {
+    const index = this.indexOf(blocks[i]);
+    if (index > -1 && index !== (i * length)) return { dup: true, block: blocks[i] };
+  }
+  return { dup: false };
+  // TODO: log positions
+}
+
 // Array methods
 
 Array.prototype.transposeBlocks = function () {
