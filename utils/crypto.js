@@ -76,3 +76,28 @@ Buffer.prototype.ecbDecrypt = function (key) {
   decipher.setAutoPadding(false);
   return Buffer.concat([decipher.update(this), decipher.final()]);
 }
+
+Buffer.prototype.cbcDecrypt = function (key, iv) {
+  const blockLength = 16;
+  iv                = iv || Buffer.alloc(blockLength);
+  const blocks      = this.getBlocks(blockLength);
+  let plaintext     = [];
+
+  plaintext.push(blocks[0].ecbDecrypt(key).xor(iv));
+  blocks.slice(1).forEach((block, i) => {
+    plaintext.push(block.ecbDecrypt(key).xor(blocks[i]));
+  });
+  return Buffer.concat(plaintext);
+}
+
+Buffer.prototype.cbcEncrypt = function (key, iv) {
+  const blockLength = 16;
+  iv                = iv || Buffer.alloc(blockLength);
+  const blocks      = this.pad(blockLength).getBlocks(blockLength);
+  let ciphertext    = [iv];
+
+  blocks.forEach((block, i) => {
+    ciphertext.push(block.xor(ciphertext[i])  .ecbEncrypt(key))
+  });
+  return Buffer.concat(ciphertext.slice(1));
+}
