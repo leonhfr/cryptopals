@@ -20,17 +20,17 @@ Buffer.prototype.singleCharacterXor = function () {
   let search = {
     key: 0,
     score: -Infinity
-  }
+  };
   for (let key = 0; key < 256; key++) {
     const score = this
       .xor(Buffer.from([key]))
-      .toAscii()
+      .asciiEncode()
       .scoreText();
     if (score > search.score) search = { key, score };
   }
   const plaintext = this
     .xor(Buffer.from([search.key]))
-    .toAscii();
+    .asciiEncode();
   return { plaintext, key: search.key };
 }
 
