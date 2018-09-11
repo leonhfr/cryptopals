@@ -43,11 +43,3 @@ Buffer.prototype.detectMode = function () {
   const blockLength = 16;
   return this.hasDuplicateBlocks(blockLength).dup ? 'ECB' : 'CBC';
 }
-
-Function.prototype.detectModeCheck = function () {
-  const blockLength = 16;
-  const data        = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.repeat(10);
-  const plaintext   = Buffer.from(data);
-  const ciphertext  = this(plaintext);
-  return ciphertext.hasDuplicateBlocks(blockLength).dup ? 'ECB' : 'CBC';
-}

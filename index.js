@@ -13,6 +13,7 @@ const challenge = getChallenge(setDir, fileName);
 // Run the challenge file
 
 const blocks = require('./utils/blocks.js');
+const cipher = require('./utils/cipher.js');
 const crypto = require('./utils/crypto.js');
 const encode = require('./utils/encode.js');
 const pad    = require('./utils/pad.js');

@@ -8,12 +8,13 @@ Buffer.prototype.pad = function (blockLength) {
 Buffer.prototype.stripPadding = function (blockLength) {
   blockLength = blockLength || 16;
   const pad = this[this.length - 1];
-  if (pad < blockLength && this.valPadding(blockLength)) return this.slice(0, this.length - pad);
+  if (pad < blockLength && this.valPadding(blockLength))
+    return this.slice(0, this.length - pad);
   else return this;
 }
 
 Buffer.prototype.valPadding = function (blockLength) {
-  if (this.length % blockLength !== 0) return false;
+  // if (this.length % blockLength !== 0) return false;
   const pad = this[this.length - 1];
   for (let i = 0; i < pad; i++) {
     if (this[this.length - i - 1] !== pad) return false;
