@@ -23,8 +23,8 @@ module.exports = (data) => {
 
   const sol = breakXOR(ciphertext, keyLengths[0].length)
 
-  console.log('Key:', sol.key.toAscii(), '\n');
-  console.log('Plaintext:\n', sol.plaintext.toAscii());
+  console.log('Key:', sol.key.asciiEncode(), '\n');
+  console.log('Plaintext:\n', sol.plaintext.asciiEncode());
 }
 
 function findKeyLengths (ciphertext) {

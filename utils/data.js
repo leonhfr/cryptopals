@@ -18,13 +18,13 @@ Buffer.prototype.base64Encode = function () {
   return this.toString('base64');
 }
 
+Buffer.prototype.asciiEncode = function () {
+  return this.toString();
+}
+
 Buffer.prototype.xor = function (key) {
   return this
     .map((x, i) => (x ^ key[i % key.length]));
-}
-
-Buffer.prototype.toAscii = function () {
-  return this.toString();
 }
 
 Buffer.prototype.bits = function () {
