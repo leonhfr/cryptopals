@@ -41,12 +41,14 @@ Buffer.prototype.hammingDistance = function (buffer) {
 }
 
 Buffer.prototype.pad = function (blockLength) {
+  blockLength = blockLength || 16;
   const padLength = blockLength - this.length % blockLength;
   if (blockLength === 0 || padLength <= 0) return this;
   return Buffer.concat([this, Buffer.alloc(padLength, padLength)]);
 }
 
 Buffer.prototype.stripPadding = function (blockLength) {
+  blockLength = blockLength || 16;
   const pad = this[this.length - 1];
   if (pad < blockLength && this.valPadding(blockLength)) return this.slice(0, this.length - pad);
   else return this;
@@ -65,7 +67,7 @@ Buffer.prototype.ecbEncrypt = function (key) {
   const iv = '';
   const cipher = crypto.createCipheriv('aes-128-ecb', key, iv);
   cipher.setAutoPadding(false);
-  return Buffer.concat([cipher.update(this.pad(key.length)), cipher.final()]);
+  return Buffer.concat([cipher.update(this), cipher.final()]);
 }
 
 Buffer.prototype.ecbDecrypt = function (key) {

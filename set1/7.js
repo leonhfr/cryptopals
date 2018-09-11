@@ -9,6 +9,7 @@ module.exports = (data) => {
     .asciiEncode();
   const encrypted  = plaintext
     .asciiDecode()
+    .pad()
     .ecbEncrypt(Buffer.from(key))
     .base64Encode();
 

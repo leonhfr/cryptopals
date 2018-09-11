@@ -27,8 +27,7 @@ Buffer.prototype.asciiEncode = function () {
 }
 
 Buffer.prototype.xor = function (key) {
-  return this
-    .map((x, i) => (x ^ key[i % key.length]));
+  return Buffer.from(this.map((x, i) => (x ^ key[i % key.length])));
 }
 
 Buffer.prototype.bits = function () {
