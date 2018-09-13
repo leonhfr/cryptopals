@@ -25,24 +25,9 @@ module.exports = (data) => {
   console.log('   prefix length:', prefixLength, '| true length:', prefix.length);
 
   const plaintext = cipher
-    .breakPrefixECB(blockLength, prefixLength)
+    .breakECB(blockLength, prefixLength)
     .stripPadding(blockLength)
     .asciiEncode();
   console.log('3: break it!');
   console.log('   Plaintext:\n', plaintext);
-}
-
-Function.prototype.breakPrefixECB = function (blockLength, prefixLength, bytes) {
-  bytes = bytes || Buffer.from('');
-  const targetByte   = bytes.length;
-  const targetPrefix = Math.ceil(prefixLength / blockLength) * blockLength;
-  const targetBlock  = Math.floor(targetByte / blockLength) * blockLength;
-  const target       = [ targetPrefix + targetBlock, targetPrefix + targetBlock + blockLength ];
-  const padPrefix    = blockLength - (prefixLength % blockLength || blockLength);
-  const padLength    = blockLength - (targetByte % blockLength) - 1;
-  const padding      = Buffer.alloc(padPrefix + padLength, 'A');
-  const byte         = this.breakECBByte(padding, bytes, target);
-  if (byte < 0) return bytes;
-  bytes = Buffer.concat([bytes, Buffer.from(byte)]);
-  return this.breakPrefixECB(blockLength, prefixLength, bytes);
 }

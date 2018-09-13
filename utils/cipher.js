@@ -18,16 +18,19 @@ Function.prototype.findBlockLength = function () {
   return newLength - length;
 }
 
-Function.prototype.breakECB = function (blockLength, bytes) {
+Function.prototype.breakECB = function (blockLength, prefixLength, bytes) {
   bytes = bytes || Buffer.from('');
-  const targetByte  = bytes.length;
-  const targetBlock = Math.floor(targetByte / blockLength) * blockLength;
-  const target      = [ targetBlock, targetBlock + blockLength ];
-  const padding     = Buffer.alloc(blockLength - (targetByte % blockLength) - 1, 'A');
-  const byte        = this.breakECBByte(padding, bytes, target);
+  const targetByte   = bytes.length;
+  const targetPrefix = Math.ceil(prefixLength / blockLength) * blockLength;
+  const targetBlock  = Math.floor(targetByte / blockLength) * blockLength;
+  const target       = [ targetPrefix + targetBlock, targetPrefix + targetBlock + blockLength ];
+  const padPrefix    = blockLength - (prefixLength % blockLength || blockLength);
+  const padLength    = blockLength - (targetByte % blockLength) - 1;
+  const padding      = Buffer.alloc(padPrefix + padLength, 'A');
+  const byte         = this.breakECBByte(padding, bytes, target);
   if (byte < 0) return bytes;
   bytes = Buffer.concat([bytes, Buffer.from(byte)]);
-  return this.breakECB(blockLength, bytes);
+  return this.breakECB(blockLength, prefixLength, bytes);
 }
 
 Function.prototype.breakECBByte = function (padding, bytes, target) {
@@ -56,19 +59,4 @@ Function.prototype.getPrefixLength = function (blockLength) {
   }
   const minPadding = padding + 1 - blockLength;
   return lastIndex - minPadding;
-}
-
-Function.prototype.breakPrefixECB = function (blockLength, prefixLength, bytes) {
-  bytes = bytes || Buffer.from('');
-  const targetByte   = bytes.length;
-  const targetPrefix = Math.ceil(prefixLength / blockLength) * blockLength;
-  const targetBlock  = Math.floor(targetByte / blockLength) * blockLength;
-  const target       = [ targetPrefix + targetBlock, targetPrefix + targetBlock + blockLength ];
-  const padPrefix    = blockLength - (prefixLength % blockLength || blockLength);
-  const padLength    = blockLength - (targetByte % blockLength) - 1;
-  const padding      = Buffer.alloc(padPrefix + padLength, 'A');
-  const byte         = this.breakECBByte(padding, bytes, target);
-  if (byte < 0) return bytes;
-  bytes = Buffer.concat([bytes, Buffer.from(byte)]);
-  return this.breakPrefixECB(blockLength, prefixLength, bytes);
 }

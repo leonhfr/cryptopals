@@ -19,7 +19,7 @@ module.exports = (data) => {
   console.log('Detected mode:', mode);
 
   const plaintext = cipher
-    .breakECB(blockLength)
+    .breakECB(blockLength, 0)
     .stripPadding()
     .asciiEncode();
   console.log('3: break it!');
