@@ -39,8 +39,8 @@ Buffer.prototype.cbcEncrypt = function (key, iv) {
   return Buffer.concat(ciphertext.slice(1));
 }
 
-Buffer.prototype.detectMode = function () {
-  const blockLength = 16;
+Buffer.prototype.detectMode = function (blockLength) {
+  blockLength = blockLength || 16;
   return this.hasDuplicateBlocks(blockLength).dup ? 'ECB' : 'CBC';
 }
 

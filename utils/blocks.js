@@ -11,11 +11,10 @@ Buffer.prototype.getBlocks = function (length, nBlocks) {
 Buffer.prototype.hasDuplicateBlocks = function (length) {
   const blocks = this.getBlocks(length);
   for (let i = 0; i < blocks.length; i++) {
-    const index = this.indexOf(blocks[i]);
-    if (index > -1 && index !== (i * length)) return { dup: true, block: blocks[i] };
+    const index = this.indexOf(blocks[i], i * length + length);
+    if (index > -1) return { dup: true, block: blocks[i], index };
   }
-  return { dup: false };
-  // TODO: log positions
+  return { dup: false, index: -1 };
 }
 
 Array.prototype.transposeBlocks = function () {
