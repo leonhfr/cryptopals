@@ -39,3 +39,36 @@ Function.prototype.breakECBByte = function (padding, bytes, target) {
   }
   return -1;
 }
+
+Function.prototype.getPrefixLength = function (blockLength) {
+  let padding = 3 * blockLength + 1;
+  let index, lastIndex;
+  do {
+    padding--;
+    lastIndex = index;
+    const plaintext  = Buffer.alloc(padding, 'A');
+    const ciphertext = this(plaintext);
+    index = ciphertext.hasDuplicateBlocks(blockLength).index;
+  } while (index > -1);
+
+  if (!lastIndex) {
+    throw new Error('Couldn\'t find duplicate block');
+  }
+  const minPadding = padding + 1 - blockLength;
+  return lastIndex - minPadding;
+}
+
+Function.prototype.breakPrefixECB = function (blockLength, prefixLength, bytes) {
+  bytes = bytes || Buffer.from('');
+  const targetByte   = bytes.length;
+  const targetPrefix = Math.ceil(prefixLength / blockLength) * blockLength;
+  const targetBlock  = Math.floor(targetByte / blockLength) * blockLength;
+  const target       = [ targetPrefix + targetBlock, targetPrefix + targetBlock + blockLength ];
+  const padPrefix    = blockLength - (prefixLength % blockLength || blockLength);
+  const padLength    = blockLength - (targetByte % blockLength) - 1;
+  const padding      = Buffer.alloc(padPrefix + padLength, 'A');
+  const byte         = this.breakECBByte(padding, bytes, target);
+  if (byte < 0) return bytes;
+  bytes = Buffer.concat([bytes, Buffer.from(byte)]);
+  return this.breakPrefixECB(blockLength, prefixLength, bytes);
+}
