@@ -1,9 +1,10 @@
-Buffer.prototype.getBlocks = function (length, nBlocks) {
+Buffer.prototype.getBlocks = function (blockLength, nBlocks) {
   let blocks = [];
-  if (nBlocks === undefined) nBlocks = Math.ceil(this.length / length);
+  blockLength  = blockLength || 16;
+  nBlocks = nBlocks || Math.ceil(this.length / blockLength);
   for (let i = 0; i < nBlocks; i++) {
-    let index = i * length;
-    blocks.push(this.slice(index, index + length));
+    const index = i * blockLength;
+    blocks.push(this.slice(index, index + blockLength));
   }
   return blocks;
 }

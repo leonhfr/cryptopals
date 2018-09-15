@@ -34,7 +34,7 @@ Buffer.prototype.cbcEncrypt = function (key, iv) {
   let ciphertext    = [iv];
 
   blocks.forEach((block, i) => {
-    ciphertext.push(block.xor(ciphertext[i])  .ecbEncrypt(key))
+    ciphertext.push(block.xor(ciphertext[i]).ecbEncrypt(key))
   });
   return Buffer.concat(ciphertext.slice(1));
 }
@@ -44,8 +44,8 @@ Buffer.prototype.detectMode = function (blockLength) {
   return this.hasDuplicateBlocks(blockLength).dup ? 'ECB' : 'CBC';
 }
 
-Function.prototype.detectMode = function () {
-  const blockLength = 16;
+Function.prototype.detectMode = function (blockLength) {
+  blockLength = blockLength || 16;
   const data        = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.repeat(10);
   const plaintext   = Buffer.from(data);
   const ciphertext  = this(plaintext);

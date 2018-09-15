@@ -14,6 +14,7 @@ Buffer.prototype.stripPadding = function (blockLength) {
 }
 
 Buffer.prototype.valPadding = function (blockLength) {
+  blockLength = blockLength || 16;
   // if (this.length % blockLength !== 0) return false;
   const pad = this[this.length - 1];
   for (let i = 0; i < pad; i++) {
