@@ -14,10 +14,10 @@ Buffer.prototype.ecbDecrypt = function (key) {
   return Buffer.concat([decipher.update(this), decipher.final()]);
 }
 
-Buffer.prototype.cbcDecrypt = function (key) {
+Buffer.prototype.cbcDecrypt = function (key, iv) {
   const blockLength = 16;
   const blocks      = this.getBlocks(blockLength);
-  iv                = blocks.shift();
+  iv                = iv || blocks.shift();
   let plaintext     = [];
   plaintext.push(blocks[0].ecbDecrypt(key).xor(iv));
   blocks.slice(1).forEach((block, i) => {
@@ -29,7 +29,7 @@ Buffer.prototype.cbcDecrypt = function (key) {
 Buffer.prototype.cbcEncrypt = function (key, iv) {
   const blockLength = 16;
   const blocks      = this.pad(blockLength).getBlocks(blockLength);
-  iv                = iv || Buffer.alloc(blockLength);
+  iv                = iv || crypto.randomBytes(blockLength);
   let ciphertext    = [iv];
   blocks.forEach((block, i) => {
     ciphertext.push(block.xor(ciphertext[i]).ecbEncrypt(key))
