@@ -15,7 +15,7 @@ module.exports = () => {
       return (prefix + input + suffix).asciiDecode().cbcEncrypt(key, iv);
     },
     decrypt: (input) => {
-      return input.cbcDecrypt(key, iv)
+      return input.cbcDecrypt(key)
     }
   };
 
@@ -44,18 +44,19 @@ Object.prototype.breakCBC = function (targetBlock, target) {
   const blocks      = ciphertext.getBlocks();
   const mutateBlock = targetBlock - 1;
   console.log('Original ciphertext:\n' + ciphertext.hexEncode());
-  console.log('Original ciphertext:\n' + this.decrypt(ciphertext).stripPadding().asciiEncode());
+  console.log('Original plaintext:\n'
+    + this.decrypt(ciphertext).stripPadding().asciiEncode());
   let index = 0;
   let lastIndex = -1;
   while (!Buffer.concat(blocks).testURL(this.decrypt, target)) {
     if (index > lastIndex) lastIndex = index;
-    else throw new Error('could not find byte', index)
+    else throw new Error('could not find byte ' + index)
     for (let i = 0; i < 256; i++) {
       blocks[mutateBlock] = blocks[mutateBlock].changeByte(index, [i]);
       const testBlock     = this
         .decrypt(Buffer.concat(blocks))
         .getBlocks()
-        [targetBlock];
+        [targetBlock - 1];
       if (testBlock[index] === Buffer.from(target)[index]) {
         console.log('found byte', index);
         index++;
