@@ -37,6 +37,19 @@ Buffer.prototype.cbcEncrypt = function (key, iv) {
   return Buffer.concat(ciphertext);
 };
 
+Buffer.prototype.ctr = function (key, nonce) {
+  const blockLength = 16;
+  const blocks      = this.getBlocks(blockLength);
+  const stream      = [];
+  for (let i = 0; i < blocks.length; i++) {
+    // TODO: ability to count above 256...
+    const count = Buffer.from([i, 0, 0, 0, 0, 0, 0, 0]);
+    stream.push(Buffer.concat([nonce, count]));
+  }
+  const keystream   = Buffer.concat(stream).ecbEncrypt(key);
+  return this.xor(keystream);
+};
+
 Buffer.prototype.detectMode = function (blockLength) {
   blockLength = blockLength || 16;
   return this.hasDuplicateBlocks(blockLength).dup ? 'ECB' : 'CBC';
