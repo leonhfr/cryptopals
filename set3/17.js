@@ -3,14 +3,16 @@ const crypto = require('crypto');
 module.exports = (data) => {
   console.log('The CBC padding oracle\n');
 
-  const key      = crypto.randomBytes(16);
-  const iv       = crypto.randomBytes(16);
+  const key    = crypto.randomBytes(16);
+  const iv     = crypto.randomBytes(16);
+  const line   = 2 || Math.floor(Math.random() * 10);
   const target = data
     .split('\n')
-    [Math.floor(Math.random() * 10)]
+    [line]
     .base64Decode()
     .cbcEncrypt(key, iv);
 
+  console.log();
   const apiEndpoint = (ciphertext) => ciphertext.cbcDecrypt(key, iv).valPadding();
   const blockLength = 16;
   const plaintext   = target

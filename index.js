@@ -16,7 +16,7 @@ const blocks  = require('./utils/blocks.js');
 const cipher  = require('./utils/cipher.js');
 const crypto  = require('./utils/crypto.js');
 const encode  = require('./utils/encode.js');
-const mt19937 = require('./utils/mt19937.js')
+const mt19937 = require('./utils/mt19937.js');
 const pad     = require('./utils/pad.js');
 const utils   = require('./utils/utils.js');
 const xor     = require('./utils/xor.js');
@@ -66,7 +66,7 @@ function getChallenge (setDir, fileName) {
   }
   const challengeExists = challenges.find(file => file === fileName);
   if (!challengeExists) {
-    throw new Error('Challenge has not been completed yet / file does not exist.')
+    throw new Error('Challenge has not been completed yet / file does not exist.');
   }
   const challenge = path.join(__dirname, setDir, fileName);
   return challenge;
