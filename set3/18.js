@@ -1,4 +1,6 @@
-const crypto = require('crypto');
+'use strict';
+
+const assert = require('assert');
 
 module.exports = () => {
   console.log('Implement CTR, the stream cipher mode\n');
@@ -7,35 +9,27 @@ module.exports = () => {
   const nonce      = Buffer.alloc(8);
   const plaintext  = ciphertext
     .base64Decode()
-    .ctrDecrypt(key, nonce)
+    .ctrEncrypt(key, nonce)
     .asciiEncode();
   console.log(plaintext);
+  const reverse = plaintext
+    .asciiDecode()
+    .ctrEncrypt(key, nonce)
+    .base64Encode();
+  console.log(ciphertext === reverse ?
+    'All good!' :
+    'Reverse operation doesn\'t work :(');
 };
 
 Buffer.prototype.ctrEncrypt = function (key, nonce) {
-  nonce = nonce || Buffer.concat([crypto.randomBytes(8), Buffer.alloc(8)]);
-  const cipher = crypto.createCipheriv('aes-128-ctr', key, nonce);
-  return Buffer.concat([nounce, cipher.update(this), cipher.final()]);
+  const blockLength = 16;
+  const blocks      = this.getBlocks(blockLength);
+  const stream      = [];
+  for (let i = 0; i < blocks.length; i++) {
+    // TODO: ability to count above 256...
+    const count = Buffer.from([i, 0, 0, 0, 0, 0, 0, 0]);
+    stream.push(Buffer.concat([nonce, count]));
+  }
+  const keystream   = Buffer.concat(stream).ecbEncrypt(key);
+  return this.xor(keystream);
 };
-
-// Buffer.prototype.ctrDecrypt = function (key, nonce) {
-//   nonce = nonce || this.slice(0, 16);
-//   const decipher = crypto.createDecipheriv('aes-128-ctr', key, nonce);
-//   return Buffer.concat([decipher.update(this), decipher.final()]);
-// }
-
-// Buffer.prototype.ctrDecrypt = function (key, nonce) {
-//   const blockLength = 16;
-//   const blocks      = this.getBlocks(blockLength);
-//   nonce             = nonce || Buffer.alloc(8);
-//   let plaintext     = [];
-//   blocks.forEach((block, i) => {
-//     let counter = [];
-//     while (i !== 0) {
-//
-//     }
-//     const counter = i;
-//     console.log(counter);
-//   });
-//   return Buffer.concat(plaintext);
-// }
