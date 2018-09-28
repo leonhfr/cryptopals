@@ -14,9 +14,7 @@ module.exports = () => {
       const suffix  = ';comment2=%20like%20a%20pound%20of%20bacon';
       return (prefix + input + suffix).asciiDecode().cbcEncrypt(key, iv);
     },
-    decrypt: (input) => {
-      return input.cbcDecrypt(key)
-    }
+    decrypt: input => input.cbcDecrypt(key)
   };
 
   // FUNCTIONS TESTS
@@ -37,7 +35,7 @@ module.exports = () => {
   const target = ';admin=true;';
   const broke  = cipher.breakCBC(targetBlock, target);
   console.log(broke.stripPadding().asciiEncode());
-}
+};
 
 Object.prototype.breakCBC = function (targetBlock, target) {
   const ciphertext  = target.encryptURL(this.encrypt);
@@ -50,13 +48,12 @@ Object.prototype.breakCBC = function (targetBlock, target) {
   let lastIndex = -1;
   while (!Buffer.concat(blocks).testURL(this.decrypt, target)) {
     if (index > lastIndex) lastIndex = index;
-    else throw new Error('could not find byte ' + index)
+    else throw new Error('could not find byte ' + index);
     for (let i = 0; i < 256; i++) {
       blocks[mutateBlock] = blocks[mutateBlock].changeByte(index, [i]);
       const testBlock     = this
         .decrypt(Buffer.concat(blocks))
-        .getBlocks()
-        [targetBlock - 1];
+        .getBlocks()[targetBlock - 1];
       if (testBlock[index] === Buffer.from(target)[index]) {
         console.log('found byte', index);
         index++;
@@ -67,16 +64,16 @@ Object.prototype.breakCBC = function (targetBlock, target) {
   const plaintext = Buffer.concat(blocks);
   console.log('Ciphertext after bitflipping attack:\n' + plaintext.hexEncode());
   return this.decrypt(plaintext);
-}
+};
 
 String.prototype.encryptURL = function (cipher) {
   const data = this.replace(/;/g, '%3B').replace(/=/g, '%3D');
   return cipher(data);
-}
+};
 
 Buffer.prototype.testURL = function (cipher, target) {
   return cipher(this).asciiEncode().search(new RegExp(target, 'g')) > 0;
-}
+};
 
 Function.prototype.findTargetBlock = function () {
   const stringA = Buffer.alloc(16, 'A').asciiEncode();
@@ -84,10 +81,10 @@ Function.prototype.findTargetBlock = function () {
   const bufferA = this(stringA).getBlocks();
   const bufferB = this(stringB).getBlocks();
   for (let i = 0; i < bufferA.length; i++) {
-    if (!bufferA[i].equals(bufferB[i])) return i
+    if (!bufferA[i].equals(bufferB[i])) return i;
   }
   return -1;
-}
+};
 
 Buffer.prototype.changeByte = function (index, byte) {
   return Buffer.concat([
@@ -95,4 +92,4 @@ Buffer.prototype.changeByte = function (index, byte) {
     Buffer.from(byte),
     this.slice(index + 1)
   ]);
-}
+};

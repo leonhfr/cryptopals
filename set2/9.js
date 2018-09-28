@@ -5,4 +5,4 @@ module.exports = () => {
 
   console.log(`The key "${key}" padded to 20 bytes is:`);
   console.log(JSON.stringify(key.asciiDecode().pad(20)));
-}
+};

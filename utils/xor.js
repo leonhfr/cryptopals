@@ -1,6 +1,6 @@
 Buffer.prototype.xor = function (key) {
   return Buffer.from(this.map((x, i) => (x ^ key[i % key.length])));
-}
+};
 
 Buffer.prototype.singleCharacterXor = function () {
   let search = {
@@ -18,13 +18,13 @@ Buffer.prototype.singleCharacterXor = function () {
     .xor(Buffer.from([search.key]))
     .asciiEncode();
   return { plaintext, key: search.key };
-}
+};
 
 Buffer.prototype.hammingDistance = function (buffer) {
   return this
     .xor(buffer)
     .bits();
-}
+};
 
 Buffer.prototype.bits = function () {
   return [...this]
@@ -32,4 +32,4 @@ Buffer.prototype.bits = function () {
     .join('')
     .replace(/0/g, '')
     .length;
-}
+};

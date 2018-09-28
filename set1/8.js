@@ -16,4 +16,4 @@ module.exports = (data) => {
       console.log('Block: ', duplicate.block.hexEncode());
     }
   });
-}
+};

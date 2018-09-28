@@ -12,4 +12,4 @@ String.prototype.scoreText = function () {
         frequencies[char] :
         0;
     }, 0) / this.length;
-}
+};

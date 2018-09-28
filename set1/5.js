@@ -12,4 +12,4 @@ module.exports = () => {
   console.log('Key:        ', key);
   console.log('Ciphertext: ', ciphertext);
   console.log('Result:     ', ciphertext === expected);
-}
+};

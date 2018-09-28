@@ -7,4 +7,4 @@ module.exports = () => {
   const test3 = Buffer.concat([buf, Buffer.from([1, 2, 3, 4])]).valPadding();
 
   console.log('Pass tests: ' + ((test1 && !test2 && !test3) ? 'OK' : 'FAIL'));
-}
+};

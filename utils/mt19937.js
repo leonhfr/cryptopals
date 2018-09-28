@@ -43,5 +43,5 @@ Math.mt19937 = function (seed) {
     y = y ^ ((y << t) & c);
     y = y ^ (y >> l);
     return y & d;
-  }
-}
+  };
+};

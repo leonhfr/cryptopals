@@ -4,7 +4,7 @@ Function.prototype.detectMode = function () {
   const plaintext   = Buffer.from(data);
   const ciphertext  = this(plaintext);
   return ciphertext.hasDuplicateBlocks(blockLength).dup ? 'ECB' : 'CBC';
-}
+};
 
 Function.prototype.findBlockLength = function () {
   const A       = Buffer.from('A');
@@ -16,7 +16,7 @@ Function.prototype.findBlockLength = function () {
     newLength = this(data).length;
   }
   return newLength - length;
-}
+};
 
 Function.prototype.breakECB = function (blockLength, prefixLength, bytes) {
   bytes = bytes || Buffer.from('');
@@ -31,7 +31,7 @@ Function.prototype.breakECB = function (blockLength, prefixLength, bytes) {
   if (byte < 0) return bytes;
   bytes = Buffer.concat([bytes, Buffer.from(byte)]);
   return this.breakECB(blockLength, prefixLength, bytes);
-}
+};
 
 Function.prototype.breakECBByte = function (padding, bytes, target) {
   const paddedBlock = this(padding).slice(...target);
@@ -41,7 +41,7 @@ Function.prototype.breakECBByte = function (padding, bytes, target) {
     if (paddedBlock.hexEncode() === plaintext.hexEncode()) return byte;
   }
   return -1;
-}
+};
 
 Function.prototype.getPrefixLength = function (blockLength) {
   let padding = 3 * blockLength + 1;
@@ -59,4 +59,4 @@ Function.prototype.getPrefixLength = function (blockLength) {
   }
   const minPadding = padding + 1 - blockLength;
   return lastIndex - minPadding;
-}
+};

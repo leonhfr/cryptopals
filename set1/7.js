@@ -15,4 +15,4 @@ module.exports = (data) => {
 
   console.log('Plaintext:\n', plaintext);
   console.log('Result:', ciphertext.base64Encode() === encrypted);
-}
+};

@@ -7,7 +7,7 @@ Buffer.prototype.getBlocks = function (blockLength, nBlocks) {
     blocks.push(this.slice(index, index + blockLength));
   }
   return blocks;
-}
+};
 
 Buffer.prototype.hasDuplicateBlocks = function (length) {
   const blocks = this.getBlocks(length);
@@ -16,7 +16,7 @@ Buffer.prototype.hasDuplicateBlocks = function (length) {
     if (index > -1) return { dup: true, block: blocks[i], index };
   }
   return { dup: false, index: -1 };
-}
+};
 
 Array.prototype.transposeBlocks = function () {
   const length = this[0].length;
@@ -29,4 +29,4 @@ Array.prototype.transposeBlocks = function () {
     transposed.push(Buffer.from(block));
   }
   return transposed;
-}
+};

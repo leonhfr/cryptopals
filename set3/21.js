@@ -12,4 +12,4 @@ module.exports = () => {
   console.log(mt19937());
   console.log(mt19937());
   console.log(mt19937());
-}
+};

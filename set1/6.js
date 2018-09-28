@@ -21,11 +21,11 @@ module.exports = (data) => {
   });
   console.log('\n');
 
-  const sol = breakXOR(ciphertext, keyLengths[0].length)
+  const sol = breakXOR(ciphertext, keyLengths[0].length);
 
   console.log('Key:', sol.key.asciiEncode(), '\n');
   console.log('Plaintext:\n', sol.plaintext.asciiEncode());
-}
+};
 
 function findKeyLengths (ciphertext) {
   const nBlocks  = 10;

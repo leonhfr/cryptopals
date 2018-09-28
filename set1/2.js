@@ -13,4 +13,4 @@ module.exports = () => {
   console.log('b        ', b);
   console.log('c = a ^ b', c);
   console.log('a ^ b    ', xor);
-}
+};

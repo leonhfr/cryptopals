@@ -10,7 +10,7 @@ module.exports = () => {
   }
   const rate = 100 * result / guesses;
   console.log(`Success rate: ${rate.toFixed(1)}%`);
-}
+};
 
 const ecbOrCbc = function (plaintext) {
   const cbcMode    = crypto.randomBytes(1)[0] < 128;
@@ -24,7 +24,7 @@ const ecbOrCbc = function (plaintext) {
     data.pad().ecbEncrypt(key);
 
   return { cbcMode, ciphertext };
-}
+};
 
 Function.prototype.detectModeCheck = function () {
   const blockLength = 16;
@@ -35,4 +35,4 @@ Function.prototype.detectModeCheck = function () {
   const detected    = ciphertext.ciphertext
     .hasDuplicateBlocks(blockLength).dup ? 'ECB' : 'CBC';
   return usedMode === detected;
-}
+};

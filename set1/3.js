@@ -11,4 +11,4 @@ module.exports = () => {
   console.log('Ciphertext: ', hex);
   console.log('Key:        ', key);
   console.log('Plaintext:  ', plaintext);
-}
+};

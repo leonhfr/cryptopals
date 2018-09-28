@@ -2,7 +2,7 @@ module.exports = (data) => {
   console.log('Implement CBC mode\n');
 
   const test    = 'Oh well, whatever, nevermind';
-  const key     = 'YELLOW SUBMARINE'
+  const key     = 'YELLOW SUBMARINE';
   const ecbTest = test
     .asciiDecode()
     .pad()
@@ -20,9 +20,9 @@ module.exports = (data) => {
     === test;
 
   const iv = Buffer.from([ 0,0,0,0,
-                           0,0,0,0,
-                           0,0,0,0,
-                           0,0,0,0 ]);
+                           0,0,0,0,    // eslint-disable-line
+                           0,0,0,0,    // eslint-disable-line
+                           0,0,0,0 ]); // eslint-disable-line
   const plaintext = data
     .replace(/\n/g, '')
     .base64Decode()
@@ -33,4 +33,4 @@ module.exports = (data) => {
   console.log('ECB test: ', ecbTest);
   console.log('CBC test: ', cbcTest);
   console.log('Plaintext:\n', plaintext);
-}
+};

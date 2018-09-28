@@ -21,11 +21,11 @@ module.exports = () => {
   const key    = crypto.randomBytes(16);
   const cipher = function (input) {
     return input.encryptProfile(key);
-  }
+  };
 
   // AES ENCRYPTION OF THE PROFILE
 
-  const emailTest = 'foo@bar.com'
+  const emailTest = 'foo@bar.com';
   const test      = Buffer
     .from(emailTest)
     .encryptProfile(key)
@@ -73,7 +73,7 @@ module.exports = () => {
 
   console.log('5: create admin profile: ');
   console.log(adminProfile.decryptProfile(key));
-}
+};
 
 Function.prototype.getRoleBlock = function (target, blockLength, offsets) {
   const role   = Buffer.from(target.asciiDecode().pad(blockLength));
@@ -81,7 +81,7 @@ Function.prototype.getRoleBlock = function (target, blockLength, offsets) {
   const after  = Buffer.from([]).pad(blockLength - offsets.after);
   const input  = Buffer.concat([before, role, after]);
   return this(input);
-}
+};
 
 Function.prototype.getCipherText = function (email, blockLength, offsets) {
   const sum         = email.length + offsets.before + offsets.after;
@@ -90,7 +90,7 @@ Function.prototype.getCipherText = function (email, blockLength, offsets) {
   const paddedEmail = Buffer.concat([buffer, Buffer.from(email)]);
   const cipherText  = this(paddedEmail);
   return cipherText;
-}
+};
 
 Function.prototype.getOffsets = function (marker) {
   const tokens      = this('!').split('!');
@@ -100,7 +100,7 @@ Function.prototype.getOffsets = function (marker) {
     before: tokens[0].length,
     after:  rolePadding.length
   };
-}
+};
 
 const parseParameters = function (string) {
   const params = {};
@@ -109,7 +109,7 @@ const parseParameters = function (string) {
     params[param[0]] = param[1];
   });
   return params;
-}
+};
 
 const profileFor = function (email) {
   const params = {
@@ -122,18 +122,18 @@ const profileFor = function (email) {
     profile.push(key + '=' + value);
   }
   return profile.join('&');
-}
+};
 
 Buffer.prototype.encryptProfile = function (key) {
   return profileFor(this.asciiEncode())
     .asciiDecode()
     .pad()
     .ecbEncrypt(key);
-}
+};
 
 Buffer.prototype.decryptProfile = function (key) {
   return parseParameters(this
     .ecbDecrypt(key)
     .stripPadding()
     .asciiEncode());
-}
+};

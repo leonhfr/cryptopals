@@ -9,4 +9,4 @@ module.exports = () => {
   console.log('Hex:        ', hex);
   console.log('Base 64:    ', base64);
   console.log('Conversion: ', conversion);
-}
+};

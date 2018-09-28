@@ -10,13 +10,13 @@ module.exports = () => {
     .ctrDecrypt(key, nonce)
     .asciiEncode();
   console.log(plaintext);
-}
+};
 
 Buffer.prototype.ctrEncrypt = function (key, nonce) {
   nonce = nonce || Buffer.concat([crypto.randomBytes(8), Buffer.alloc(8)]);
   const cipher = crypto.createCipheriv('aes-128-ctr', key, nonce);
   return Buffer.concat([nounce, cipher.update(this), cipher.final()]);
-}
+};
 
 // Buffer.prototype.ctrDecrypt = function (key, nonce) {
 //   nonce = nonce || this.slice(0, 16);

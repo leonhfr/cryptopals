@@ -8,7 +8,7 @@ module.exports = (data) => {
     const buffer    = data.replace(/\n/g, '').base64Decode();
     const plaintext = Buffer.concat([input, buffer]);
     return plaintext.pad().ecbEncrypt(key);
-  }
+  };
 
   const blockLength = cipher.findBlockLength();
   console.log('1: find the block length');
@@ -24,4 +24,4 @@ module.exports = (data) => {
     .asciiEncode();
   console.log('3: break it!');
   console.log('Plaintext:\n', plaintext);
-}
+};
