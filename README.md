@@ -25,35 +25,38 @@ If the challenge has data, it is stored in `/data` in text files with the challe
 
 ## Progress
 
-- Set 1 (complete)
-  1. Convert hex to base64
-  2. Fixed XOR
-  3. Single-byte XOR cipher
-  4. Detect single-byte XOR cipher
-  5. Implement repeating-key XOR
-  6. Break repeating-key XOR
-  7. AES in ECB mode
-  8. Detect AES in ECB mode
-- Set 2 (complete)
-  9. Implement
-  10. Implement CBC mode
-  11. An ECB/CBC detection oracle
-  12. Byte-at-a-time ECB decryption (simple)
-  13. ECB cut-and-paste
-  14. Byte-at-a-time ECB decryption (harder)
-  15. PKCS#7 padding validation
-  16. CBC bitflipping attacks
-- Set 3 (incomplete)
-  17. The CBC padding oracle
-  18. Implement CTR, the stream cipher mode
-  19. Break fixed-nonce CTR using substitutions
-  20. Break fixed-nonce CTR statistically
-  21. Implement the MT19937 Mersenne Twister RNG
-  22. Crack an MT19937 seed
-  23. Clone an MT19937 RNG from its output
-  24. Create the MT19937 stream cipher and break it
-- Set 4 (not attempted)
-- Set 5 (not attempted)
-- Set 6 (not attempted)
-- Set 7 (not attempted)
-- Set 8 (not attempted)
+#### Set 1 (complete)
+1. Convert hex to base64
+2. Fixed XOR
+3. Single-byte XOR cipher
+4. Detect single-byte XOR cipher
+5. Implement repeating-key XOR
+6. Break repeating-key XOR
+7. AES in ECB mode
+8. Detect AES in ECB mode
+
+#### Set 2 (complete)
+9. Implement
+10. Implement CBC mode
+11. An ECB/CBC detection oracle
+12. Byte-at-a-time ECB decryption (simple)
+13. ECB cut-and-paste
+14. Byte-at-a-time ECB decryption (harder)
+15. PKCS#7 padding validation
+16. CBC bitflipping attacks
+
+#### Set 3 (incomplete)
+17. The CBC padding oracle
+18. Implement CTR, the stream cipher mode
+19. Break fixed-nonce CTR using substitutions
+20. Break fixed-nonce CTR statistically
+21. Implement the MT19937 Mersenne Twister RNG
+22. Crack an MT19937 seed
+23. Clone an MT19937 RNG from its output
+24. Create the MT19937 stream cipher and break it
+
+#### Set 4 (not attempted)
+#### Set 5 (not attempted)
+#### Set 6 (not attempted)
+#### Set 7 (not attempted)
+#### Set 8 (not attempted)
