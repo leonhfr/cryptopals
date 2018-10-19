@@ -25,5 +25,8 @@
     "eslint": "^5.6.0",
     "eslint-plugin-json": "^1.2.1",
     "nodemon": "^1.18.4"
+  },
+  "dependencies": {
+    "cli-progress": "^2.1.0"
   }
 }
