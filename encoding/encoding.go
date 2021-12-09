@@ -18,3 +18,8 @@ func HexToBytes(h string) []byte {
 func BytesToBase64(bytes []byte) string {
 	return base64.StdEncoding.EncodeToString(bytes)
 }
+
+// BytesToHex converts a []byte to a hex string
+func BytesToHex(bytes []byte) string {
+	return hex.EncodeToString(bytes)
+}
