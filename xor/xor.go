@@ -30,10 +30,8 @@ func SingleByteXOR(buffer []byte, key rune) []byte {
 }
 
 // CrackSingleByteXOR tests a ciphertext against all 256 bytes and returns the likeliest plaintext with the key
-func CrackSingleByteXOR(ciphertext []byte) ([]byte, byte) {
+func CrackSingleByteXOR(ciphertext []byte) (plaintext []byte, key byte) {
 	var highestScore float64
-	var key byte
-	var plaintext []byte
 
 	for i := 0; i < 256; i++ {
 		x := SingleByteXOR(ciphertext, rune(i))
@@ -41,6 +39,23 @@ func CrackSingleByteXOR(ciphertext []byte) ([]byte, byte) {
 
 		if score > highestScore {
 			plaintext, key, highestScore = x, byte(i), score
+		}
+
+	}
+
+	return plaintext, key
+}
+
+// DetectSingleByteXOR takes an array of []byte and cracks them
+func DetectSingleByteXOR(ciphertexts [][]byte) (plaintext []byte, key byte) {
+	var highestScore float64
+
+	for _, ciphertext := range ciphertexts {
+		t, k := CrackSingleByteXOR(ciphertext)
+		score := analysis.ScoreText(t)
+
+		if score > highestScore {
+			highestScore, plaintext, key = score, t, k
 		}
 
 	}
