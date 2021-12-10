@@ -1,9 +1,18 @@
-package encoding
+package bytes
 
 import (
 	"encoding/base64"
 	"encoding/hex"
 )
+
+// Base64ToBytes converts a hex string to []byte
+func Base64ToBytes(b string) []byte {
+	bytes, err := base64.StdEncoding.DecodeString(b)
+	if err != nil {
+		panic(err)
+	}
+	return bytes
+}
 
 // HexToBytes converts a hex string to []byte
 func HexToBytes(h string) []byte {

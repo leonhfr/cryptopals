@@ -15,12 +15,12 @@ Character frequency is a good metric. Evaluate each output and choose the one wi
 package set1
 
 import (
-	"github.com/leonhfr/cryptopals/encoding"
+	"github.com/leonhfr/cryptopals/bytes"
 	"github.com/leonhfr/cryptopals/xor"
 )
 
 func Challenge3(ciphertext string) (string, string) {
-	c := encoding.HexToBytes(ciphertext)
+	c := bytes.HexToBytes(ciphertext)
 	plaintext, key := xor.CrackSingleByteXOR(c)
 	return string(plaintext), string(key)
 }

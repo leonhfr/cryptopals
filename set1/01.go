@@ -14,8 +14,8 @@ So go ahead and make that happen. You'll need to use this code for the rest of t
 
 package set1
 
-import "github.com/leonhfr/cryptopals/encoding"
+import "github.com/leonhfr/cryptopals/bytes"
 
 func Challenge1(input string) string {
-	return encoding.BytesToBase64(encoding.HexToBytes(input))
+	return bytes.BytesToBase64(bytes.HexToBytes(input))
 }

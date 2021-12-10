@@ -19,16 +19,16 @@ If your function works properly, then when you feed it the string:
 package set1
 
 import (
-	"github.com/leonhfr/cryptopals/encoding"
+	"github.com/leonhfr/cryptopals/bytes"
 	"github.com/leonhfr/cryptopals/xor"
 )
 
 func Challenge2(h1, h2 string) (string, error) {
-	hex1 := encoding.HexToBytes(h1)
-	hex2 := encoding.HexToBytes(h2)
+	hex1 := bytes.HexToBytes(h1)
+	hex2 := bytes.HexToBytes(h2)
 	x, err := xor.FixedXOR(hex1, hex2)
 	if err != nil {
 		return "", err
 	}
-	return encoding.BytesToHex(x), nil
+	return bytes.BytesToHex(x), nil
 }

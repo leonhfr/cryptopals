@@ -24,12 +24,12 @@ I promise, we aren't wasting your time with this.
 package set1
 
 import (
-	"github.com/leonhfr/cryptopals/encoding"
+	"github.com/leonhfr/cryptopals/bytes"
 	"github.com/leonhfr/cryptopals/xor"
 )
 
 func Challenge5(plaintext, key string) string {
 	pt, k := []byte(plaintext), []byte(key)
 	ciphertext := xor.RepeatingKeyXOR(pt, k)
-	return encoding.BytesToHex(ciphertext)
+	return bytes.BytesToHex(ciphertext)
 }

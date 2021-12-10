@@ -9,7 +9,7 @@ Find it.
 package set1
 
 import (
-	"github.com/leonhfr/cryptopals/encoding"
+	"github.com/leonhfr/cryptopals/bytes"
 	"github.com/leonhfr/cryptopals/xor"
 )
 
@@ -17,7 +17,7 @@ func Challenge4(lines []string) (string, string) {
 	var ciphertexts [][]byte
 
 	for _, line := range lines {
-		ciphertexts = append(ciphertexts, encoding.HexToBytes(line))
+		ciphertexts = append(ciphertexts, bytes.HexToBytes(line))
 	}
 
 	plaintext, key := xor.DetectSingleByteXOR(ciphertexts)
