@@ -6,8 +6,7 @@ var frequencies = []float64{
 
 // ScoreText scores a string according to a dictionary of English characters frequency.
 // The higher the score the likelier the string is to be in English.
-func ScoreText(text []byte) float64 {
-	var score float64
+func ScoreText(text []byte) (score float64) {
 	spaceFreq := 5.0
 
 	for _, character := range text {
@@ -25,4 +24,19 @@ func ScoreText(text []byte) float64 {
 	}
 
 	return score / float64(len(text))
+}
+
+// HammingDistance computs the number of different bits between two buffers
+func HammingDistance(buffer1, buffer2 []byte) (distance int) {
+	for i, b := range buffer1 {
+		distance += countBits(buffer2[i] ^ b)
+	}
+	return
+}
+
+func countBits(b byte) (bits int) {
+	for ; b > 0; b >>= 1 {
+		bits += int(b & 1)
+	}
+	return
 }
