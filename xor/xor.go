@@ -29,6 +29,17 @@ func SingleByteXOR(buffer []byte, key rune) []byte {
 	}, buffer)
 }
 
+// RepeatingKeyXOR encrypt a text with XOR
+func RepeatingKeyXOR(plaintext, key []byte) []byte {
+	ciphertext := make([]byte, len(plaintext))
+
+	for i, b := range plaintext {
+		ciphertext[i] = b ^ key[i%len(key)]
+	}
+
+	return ciphertext
+}
+
 // CrackSingleByteXOR tests a ciphertext against all 256 bytes and returns the likeliest plaintext with the key
 func CrackSingleByteXOR(ciphertext []byte) (plaintext []byte, key byte) {
 	var highestScore float64
