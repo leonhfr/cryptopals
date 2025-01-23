@@ -32,3 +32,26 @@ func BytesToBase64(bytes []byte) string {
 func BytesToHex(bytes []byte) string {
 	return hex.EncodeToString(bytes)
 }
+
+// SplitBytes splits a byte slice into chunks of a certain length
+func SplitBytes(buffer []byte, length int) (chunks [][]byte) {
+	for i := 0; i < len(buffer); i += length {
+		if i+length >= len(buffer) {
+			chunks = append(chunks, buffer[i:])
+		} else {
+			chunks = append(chunks, buffer[i:i+length])
+		}
+	}
+	return
+}
+
+// TransposeBytes AA,BB,CC -> ABC,ABC
+func TransposeBytes(buffers [][]byte) [][]byte {
+	result := make([][]byte, len(buffers[0]))
+	for _, buffer := range buffers {
+		for i, b := range buffer {
+			result[i] = append(result[i], b)
+		}
+	}
+	return result
+}

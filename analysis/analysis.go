@@ -40,3 +40,19 @@ func countBits(b byte) (bits int) {
 	}
 	return
 }
+
+// BlockDistance computes the hamming distance of size sized blocks in a buffer
+// Distances are normalized and averaged
+func BlockDistance(buffer []byte, size int) (distance float64) {
+	// Abort if there are fewer than four blocks to compare
+	if len(buffer) < 4*size {
+		return -1
+	}
+	iterations := len(buffer)/size - 1
+	for i := 0; i < iterations; i++ {
+		a := buffer[i*size : (i+1)*size]
+		b := buffer[(i+1)*size : (i+2)*size]
+		distance += float64(HammingDistance(a, b))
+	}
+	return distance / float64(size*iterations)
+}

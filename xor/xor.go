@@ -73,3 +73,17 @@ func DetectSingleByteXOR(ciphertexts [][]byte) (plaintext []byte, key byte) {
 
 	return plaintext, key
 }
+
+// GuessKeySize attempts to guess the repeating key XOR cipher key size by comparing the edit distance of blocks
+// within cipher. The guessed keysize with the lowest edit distance is selected.
+func GuessKeySize(ciphertext []byte, minKeySize, maxKeySize int) (keySize int) {
+	bestDistance := analysis.BlockDistance(ciphertext, minKeySize)
+	for size := minKeySize + 1; size <= maxKeySize; size++ {
+		distance := analysis.BlockDistance(ciphertext, size)
+
+		if distance >= 0 && distance < bestDistance {
+			bestDistance, keySize = distance, size
+		}
+	}
+	return
+}
